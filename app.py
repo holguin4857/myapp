@@ -11,7 +11,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-
+todos = ["Learn Flask", "Setup venv", "Build a cool app"]
 
 class Todo(db.Model):
     id = db.Column(db.Integer, primary_key = True)
@@ -26,6 +26,6 @@ db.create_all()
 @app.route('/', methods=["GET", "POST"])
 def index():
     if 'todo' in request.form:
-        db.session.add(Todo(todo_text=request.form['todo']))#
+        db.session.add(Todo(todo_text=request.form['todo']))
         db.session.commit()
     return render_template('index.html', todos=Todo.query.all(), template_form=TodoForm())
